@@ -48,7 +48,7 @@ export class UsersService {
             throw new HttpException("user_already_exist", 
                HttpStatus.CONFLICT);
         }
-        return   await this.prisma.user.create({
+         return   await this.prisma.user.create({
       data: {
         ...userDto,
        password: await hash(userDto.password, 10),
@@ -83,6 +83,17 @@ export class UsersService {
     async findByPayload({login}: any): Promise<any> {
         return await this.prisma.user.findFirst({
             where: {login}
+        });
+    }
+
+    async emailVerification(email : string): Promise<any> {
+    return await this.prisma.user.updateMany({
+            where: {
+                login : email
+            },
+            data: {
+                EmailIsVerified : true
+            },
         });
     }
 

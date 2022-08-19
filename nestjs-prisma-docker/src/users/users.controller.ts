@@ -17,6 +17,8 @@ import {UsersService} from "./users.service";
 import {JwtAuthGuard} from "../auth/jwt-auth.guard";
 import {AuthGuard} from "@nestjs/passport";
 import {UpdatePasswordDto} from "./user.dto";
+import { Roles } from '../roles/decorator';
+import { Role } from '../enums/role.enums';
 @ApiTags('user')
 @Controller('user')
 export class UsersController {
@@ -28,6 +30,7 @@ export class UsersController {
     @ApiSecurity('access-key')
     @UseInterceptors(ClassSerializerInterceptor)
     @Put('update/password')
+    @Roles(Role.User)
     public async updatePassword(@Request() req, @Body() 
                    updatePasswordDto: UpdatePasswordDto) {
         await this.usersService

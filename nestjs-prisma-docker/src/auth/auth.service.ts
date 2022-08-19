@@ -6,6 +6,8 @@ import {JwtPayload} from "./jwt.strategy";
 import {PrismaService} from "../prisma.service";
 import {User} from '@prisma/client'
 import {hash} from "bcrypt";
+import { MailService } from '../mail/mail.service';
+import { User1 } from '../users/user1.entity';
 // import {User} from "../users/user.entity";
 
 @Injectable()
@@ -14,7 +16,14 @@ export class AuthService {
         private readonly prisma: PrismaService,
         private readonly jwtService: JwtService,
         private readonly usersService: UsersService,
+        private mailService: MailService
     ) {}
+
+    async signUp(user: CreateUserDto) {
+     await this.mailService.sendUserConfirmation(user);
+  }
+
+  
 
     async register(userDto: CreateUserDto):
         Promise<RegistrationStatus> {
@@ -25,6 +34,7 @@ export class AuthService {
 
         try {
             status.data = await this.usersService.create(userDto);
+            this.signUp(userDto)
         } catch (err) {
             status = {
                 success: false,
@@ -65,6 +75,12 @@ export class AuthService {
         }
         return user;
     }
+
+    async verifyAccount(email :string): Promise<any> {
+    this.usersService.emailVerification(email);
+    this.mailService.sendUserValidation(email);
+}
+
 }
 
 export interface RegistrationStatus{

@@ -7,12 +7,16 @@ import {JwtStrategy} from "./jwt.strategy";
 import { AuthController } from './auth.controller';
 import {UsersService} from "../users/users.service";
 import {PrismaService} from "../prisma.service";
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from '../roles/guard';
+import { MailModule } from '../mail/mail.module';
 
 
 
 @Module({
   imports: [
     UsersModule,
+    MailModule,
     PassportModule.register({
       defaultStrategy: 'jwt',
       property: 'user',
@@ -26,7 +30,12 @@ import {PrismaService} from "../prisma.service";
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, UsersService, JwtStrategy, PrismaService],
+  providers: [AuthService, UsersService, JwtStrategy, PrismaService,
+     {
+    provide: APP_GUARD,
+    useClass: RolesGuard,
+  },
+  ],
   exports: [
     PassportModule,
     JwtModule
