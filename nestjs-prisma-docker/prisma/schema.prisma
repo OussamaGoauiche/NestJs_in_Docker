@@ -29,3 +29,104 @@ enum Role {
   ADMIN
   ROOT
 }
+
+model Utilisateur {
+  id_utilisateur        Int            @id @default(autoincrement())
+  nom_utilisateur       String
+  telephone_utilisateur Int            @unique
+  email_utilisateur     String         @unique
+  password_utilisateur  String
+  Attribue              Attribue[]
+  message               Message[]
+  kYCUilisateur         KYCUilisateur?
+  compte                Compte[]
+}
+
+model Notification {
+  id_notif          Int        @id @default(autoincrement())
+  data_notif        DateTime   @default(now())
+  titre_notif       String
+  description_notif String
+  type_notif        String
+  Attribue          Attribue[]
+}
+
+model Attribue {
+  user         Utilisateur  @relation(fields: [userid], references: [id_utilisateur])
+  userid       Int
+  notification Notification @relation(fields: [notif_id], references: [id_notif])
+  notif_id     Int
+
+  @@id([userid, notif_id])
+}
+
+model KYCUilisateur {
+  id_kyc                  Int         @id @default(autoincrement())
+  imageCIN_kyc            String
+  video_ScanFacial        String
+  email_verificationToken String
+  phone_verificationToken String
+  utilisateur             Utilisateur @relation(fields: [userid], references: [id_utilisateur])
+  userid                  Int         @unique
+}
+
+model Message {
+  id_message                Int         @id @default(autoincrement())
+  description_message       String
+  date_message              DateTime    @default(now())
+  titre_message             String
+  Utilisateur               Utilisateur @relation(fields: [utilisateurId_utilisateur], references: [id_utilisateur])
+  utilisateurId_utilisateur Int
+}
+
+model Compte {
+  id_compte             Int              @id @default(autoincrement())
+  nom_compte            String
+  historiqueTransaction Int
+  utilisateur           Utilisateur      @relation(fields: [userid], references: [id_utilisateur])
+  userid                Int
+  codeQr                CodeQr[]
+  transcation           Transaction[]
+  historiqueScan        HistoriqueScan[]
+}
+
+model CodeQr {
+  id_codeqr               Int            @id @default(autoincrement())
+  Url_Qr                  String
+  nomber_coin             Int
+  ScanCounter             Int
+  typecodeQr              String
+  Compte                  Compte         @relation(fields: [compteId_compte], references: [id_compte])
+  compteId_compte         Int
+  historiqueScan          HistoriqueScan @relation(fields: [historiqueId_historique], references: [id_historiqueScan])
+  historiqueId_historique Int            @unique
+}
+
+model HistoriqueScan {
+  id_historiqueScan Int      @id @default(autoincrement())
+  info_scan         String
+  date_scan         DateTime @default(now())
+  id_compte         Int
+  id_codeqr         Int
+  Compte            Compte?  @relation(fields: [compteId_compte], references: [id_compte])
+  compteId_compte   Int?
+  codeQr            CodeQr?
+}
+
+model Transaction {
+  id_transac      Int      @id @default(autoincrement())
+  montant_transac Float
+  date_transac    DateTime @default(now())
+  commission      Float
+  id_emetteur     Int
+  id_receveur     Int
+
+  Compte          Compte? @relation(fields: [compteId_compte], references: [id_compte])
+  compteId_compte Int?
+}
+
+model PrixGcoin {
+  id_prixGcoin     Int    @id @default(autoincrement())
+  prix_Gcoin       Float
+  detail_prixGcoin String
+}

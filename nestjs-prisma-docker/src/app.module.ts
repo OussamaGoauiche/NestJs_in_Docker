@@ -7,12 +7,28 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { MailModule } from './mail/mail.module';
 import { ConfigModule } from '@nestjs/config';
+import { MessagesModule } from './messages/messages.module';
+import { PrixgcoinModule } from './prixgcoin/prixgcoin.module';
+import { HistoriqueModule } from './historique/historique.module';
+import { TransactionModule } from './transaction/transaction.module';
+import { CodeQrModule } from './code-qr/code-qr.module';
+import { NotificationModule } from './notification/notification.module';
+import { UtilisateurModule } from './utilisateur/utilisateur.module';
+import { AttribueModule } from './attribue/attribue.module';
 
 @Module({
   imports: [AuthModule, UsersModule, MailModule,
    ConfigModule.forRoot({
       isGlobal: true, // no need to import into other modules
     }),
+   MessagesModule,
+   PrixgcoinModule,
+   HistoriqueModule,
+   TransactionModule,
+   CodeQrModule,
+   NotificationModule,
+   UtilisateurModule,
+   AttribueModule,
   ],
   controllers: [AppController],
   providers: [AppService,PrismaService],
