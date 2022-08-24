@@ -6,7 +6,6 @@ import { APP_GUARD } from '@nestjs/core';
 import { ThrottlerGuard } from '@nestjs/throttler';
 
 @Module({
-  imports: [PrismaService],
   controllers: [MessagesController],
   providers: [{
   provide: APP_GUARD,
