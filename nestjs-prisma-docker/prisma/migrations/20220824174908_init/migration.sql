@@ -30,7 +30,7 @@ CREATE TABLE "Utilisateur" (
 -- CreateTable
 CREATE TABLE "Notification" (
     "id_notif" SERIAL NOT NULL,
-    "data_notif" TIMESTAMP(3) NOT NULL,
+    "data_notif" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "titre_notif" TEXT NOT NULL,
     "description_notif" TEXT NOT NULL,
     "type_notif" TEXT NOT NULL,

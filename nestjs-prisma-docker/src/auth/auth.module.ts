@@ -10,6 +10,7 @@ import {PrismaService} from "../prisma.service";
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from '../roles/guard';
 import { MailModule } from '../mail/mail.module';
+import { ThrottlerGuard } from '@nestjs/throttler';
 
 
 
@@ -30,7 +31,11 @@ import { MailModule } from '../mail/mail.module';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, UsersService, JwtStrategy, PrismaService,
+  providers: [{
+  provide: APP_GUARD,
+  useClass: ThrottlerGuard
+}
+,AuthService, UsersService, JwtStrategy, PrismaService,
      {
     provide: APP_GUARD,
     useClass: RolesGuard,

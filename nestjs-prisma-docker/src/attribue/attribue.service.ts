@@ -1,4 +1,4 @@
-import { Attribue } from './entities/attribue.entity';
+
 import { Injectable } from '@nestjs/common';
 import { CreateAttribueDto } from './dto/create-attribue.dto';
 import { UpdateAttribueDto } from './dto/update-attribue.dto';

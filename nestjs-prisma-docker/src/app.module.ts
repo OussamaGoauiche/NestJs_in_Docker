@@ -15,9 +15,14 @@ import { CodeQrModule } from './code-qr/code-qr.module';
 import { NotificationModule } from './notification/notification.module';
 import { UtilisateurModule } from './utilisateur/utilisateur.module';
 import { AttribueModule } from './attribue/attribue.module';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
-  imports: [AuthModule, UsersModule, MailModule,
+  imports: [ ThrottlerModule.forRoot({
+      ttl: 60,
+      limit: 10,
+    }),AuthModule, UsersModule, MailModule,
    ConfigModule.forRoot({
       isGlobal: true, // no need to import into other modules
     }),
@@ -31,6 +36,10 @@ import { AttribueModule } from './attribue/attribue.module';
    AttribueModule,
   ],
   controllers: [AppController],
-  providers: [AppService,PrismaService],
+  providers: [{
+  provide: APP_GUARD,
+  useClass: ThrottlerGuard
+}
+,AppService,PrismaService],
 })
 export class AppModule {}

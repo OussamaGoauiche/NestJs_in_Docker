@@ -4,6 +4,8 @@ import { Global, Module } from '@nestjs/common';
 import { MailService } from './mail.service';
 import { join } from 'path';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { APP_GUARD } from '@nestjs/core';
+import { ThrottlerGuard } from '@nestjs/throttler';
 
 @Global() // 👈 global module
 @Module({
@@ -36,7 +38,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       inject: [ConfigService],
     }),
   ],
-  providers: [MailService],
+  providers: [{
+  provide: APP_GUARD,
+  useClass: ThrottlerGuard
+}
+,MailService],
   exports: [MailService],
 })
 export class MailModule {}
