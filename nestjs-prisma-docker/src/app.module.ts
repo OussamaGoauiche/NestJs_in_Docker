@@ -19,7 +19,7 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 
 @Module({
-  imports: [ ThrottlerModule.forRoot({
+  imports: [ThrottlerModule.forRoot({
       ttl: 60,
       limit: 10,
     }),AuthModule, UsersModule, MailModule,

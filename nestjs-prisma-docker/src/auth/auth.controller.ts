@@ -21,8 +21,9 @@ import { DEFAULT_ECDH_CURVE } from 'tls';
 
 
 
-@ApiTags('auth')
+
 @Controller('auth')
+@ApiTags('auth')
 export class AuthController {
     constructor(
         private readonly authService: AuthService,

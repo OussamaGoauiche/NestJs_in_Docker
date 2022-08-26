@@ -19,8 +19,9 @@ import {AuthGuard} from "@nestjs/passport";
 import {UpdatePasswordDto} from "./user.dto";
 import { Roles } from '../roles/decorator';
 import { Role } from '../enums/role.enums';
-@ApiTags('user')
+
 @Controller('user')
+@ApiTags('user')
 export class UsersController {
     constructor(
         private readonly usersService: UsersService) {}
