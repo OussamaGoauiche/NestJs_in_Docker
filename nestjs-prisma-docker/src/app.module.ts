@@ -20,8 +20,8 @@ import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [ThrottlerModule.forRoot({
-      ttl: 60,
-      limit: 10,
+      ttl: 10,
+      limit: 20,
     }),AuthModule, UsersModule, MailModule,
    ConfigModule.forRoot({
       isGlobal: true, // no need to import into other modules

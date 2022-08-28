@@ -43,7 +43,7 @@ export class AuthController {
     }
     
     @Post('login')
-    @Roles(Role.Admin)
+    @Roles(Role.User)
     public async login(@Body() loginUserDto: LoginUserDto): 
        Promise<any> {
         return await this.authService.login(loginUserDto);
