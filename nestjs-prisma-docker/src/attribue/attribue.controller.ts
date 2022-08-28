@@ -26,7 +26,7 @@ export class AttribueController {
   @UseGuards(JwtAuthGuard)
   @ApiSecurity('access-key')
   @UseInterceptors(ClassSerializerInterceptor)
-  @Roles(Role.Admin)
+  @Roles(Role.User)
   @ApiOkResponse({ description: ' attribue retrieved successfully.'})
   @ApiNotFoundResponse({ description: 'attribue not retrieved successfully' })
   findAll() {
