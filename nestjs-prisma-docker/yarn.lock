@@ -2527,10 +2527,20 @@
     "cookie" "0.4.1"
     "cookie-signature" "1.0.6"
 
+"cookie-signature@^1.1.0":
+  "integrity" "sha512-R0BOPfLGTitaKhgKROKZQN6iyq2iDQcH1DOF8nJoaWapguX5bC2w+Q/I9NmmM5lfcvEarnLZr+cCvmEYYSXvYA=="
+  "resolved" "https://registry.npmjs.org/cookie-signature/-/cookie-signature-1.2.0.tgz"
+  "version" "1.2.0"
+
 "cookie-signature@1.0.6":
   "integrity" "sha1-4wOogrNCzD7oylE6eZmXNNqzriw="
   "resolved" "https://registry.npmjs.org/cookie-signature/-/cookie-signature-1.0.6.tgz"
   "version" "1.0.6"
+
+"cookie@^0.4.1":
+  "integrity" "sha512-aSWTXFzaKWkvHO1Ny/s+ePFpvKsPnjc551iI41v3ny/ow6tBG5Vd+FuqGNhh1LxOmVzOlGUriIlOaokOvhaStA=="
+  "resolved" "https://registry.npmjs.org/cookie/-/cookie-0.4.2.tgz"
+  "version" "0.4.2"
 
 "cookie@0.4.0":
   "integrity" "sha512-+Hp8fLp57wnUSt0tY0tHEXh4voZRDnoIrZPqlo3DPiI4y9lwg/jqx+1Om94/W6ZaPDOUbnjOt/99w66zk+l1Xg=="
@@ -2600,7 +2610,7 @@
   "resolved" "https://registry.npmjs.org/crypt/-/crypt-0.0.2.tgz"
   "version" "0.0.2"
 
-"csrf@3.1.0":
+"csrf@^3.1.0", "csrf@3.1.0":
   "integrity" "sha512-uTqEnCvWRk042asU6JtapDTcJeeailFy4ydOQS28bj1hcLnYRiqi8SsD2jS412AY1I/4qdOwWZun774iqywf9w=="
   "resolved" "https://registry.npmjs.org/csrf/-/csrf-3.1.0.tgz"
   "version" "3.1.0"
@@ -6062,6 +6072,15 @@
   "integrity" "sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc="
   "resolved" "https://registry.npmjs.org/natural-compare/-/natural-compare-1.4.0.tgz"
   "version" "1.4.0"
+
+"ncsrf@^1.0.2":
+  "integrity" "sha512-RPcbc1n5E+0HjaLwWqB2cU8Fq1c41i5QhHi21XBUnn3dOzsDazyui+f4DUZ+UhxzKRoRFgKU1JwkPnVs9b945w=="
+  "resolved" "https://registry.npmjs.org/ncsrf/-/ncsrf-1.0.2.tgz"
+  "version" "1.0.2"
+  dependencies:
+    "cookie" "^0.4.1"
+    "cookie-signature" "^1.1.0"
+    "csrf" "^3.1.0"
 
 "nearley@^2.20.1":
   "integrity" "sha512-+Mc8UaAebFzgV+KpI5n7DasuuQCHA89dmwm7JXw3TV43ukfNQ9DnBH3Mdb2g/I4Fdxc26pwimBWvjIw0UAILSQ=="

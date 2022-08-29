@@ -1,17 +1,27 @@
-import { PrismaService } from './prisma.service';
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post, Req } from '@nestjs/common';
 import { AppService } from './app.service';
-import { User } from '@prisma/client';
 import { ApiTags } from '@nestjs/swagger';
+ import {Csrf} from "ncsrf";
 
 @Controller()
 @ApiTags('utilisateur')
 export class AppController {
   constructor(
-    
     private readonly appService: AppService,
-    private readonly prismaService: PrismaService,
   ) {}
+
+  @Get('/token')
+  getCsrfToken(@Req() req): any {
+    return {
+      token: req.csrfToken()
+    }
+  }
+
+  @Post()
+  @Csrf()
+  needProtect(): string{
+    return "Protected!";
+  }
 
   @Get()
   getHello(): string {
