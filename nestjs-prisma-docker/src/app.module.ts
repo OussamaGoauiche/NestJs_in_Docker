@@ -18,6 +18,7 @@ import { AttribueModule } from './attribue/attribue.module';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { SomePaypalModule } from './some-paypal/some-paypal.module';
+import { PhoneModule } from './phone/phone.module';
 
 @Module({
   imports: [ThrottlerModule.forRoot({
@@ -36,6 +37,7 @@ import { SomePaypalModule } from './some-paypal/some-paypal.module';
    NotificationModule,
    UtilisateurModule,
    AttribueModule,
+   PhoneModule,
   ],
   controllers: [AppController],
   providers: [{
