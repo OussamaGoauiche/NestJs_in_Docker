@@ -2,12 +2,26 @@ import { Injectable } from '@nestjs/common';
 import { CreateNotificationDto } from './dto/create-notification.dto';
 import { UpdateNotificationDto } from './dto/update-notification.dto';
 import { PrismaService } from '../prisma.service';
-
+import { Cron } from '@nestjs/schedule';
 
 @Injectable()
 export class NotificationService {
 
   constructor( private readonly prisma: PrismaService) {}
+
+
+   @Cron('0 0 0 0 1 *',{
+    name: 'notifications'
+  })
+  async notificationGlobal(createNotificationDto: CreateNotificationDto) {
+    return await this.prisma.notification.create({
+          data: {
+          titre_notif:"Xcard",
+          description_notif:"Amusez-vous",
+          type_notif:"Fidelité"
+        },
+        });
+  }
 
 
   async create(createNotificationDto: CreateNotificationDto) {

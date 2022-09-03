@@ -19,9 +19,12 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { SomePaypalModule } from './some-paypal/some-paypal.module';
 import { PhoneModule } from './phone/phone.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
-  imports: [ThrottlerModule.forRoot({
+  imports: [
+    ScheduleModule.forRoot()
+    ,ThrottlerModule.forRoot({
       ttl: 10,
       limit: 20,
     }),AuthModule, UsersModule, MailModule,
