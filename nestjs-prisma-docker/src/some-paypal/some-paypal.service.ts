@@ -1,9 +1,10 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectPaypal, InjectPaypalClient } from 'nestjs-paypal-payouts';
 
 @Injectable()
 export class SomePaypalService {
+   private readonly logger = new Logger(SomePaypalService.name)
     constructor(
     @InjectPaypalClient()
     private readonly paypalClient,
@@ -12,6 +13,7 @@ export class SomePaypalService {
   ) {}
  
 async payout() {
+  this.logger.log('payment received');
   const request =new this.paypal.payouts.PayoutsPostRequest();
  
   request.requestBody({

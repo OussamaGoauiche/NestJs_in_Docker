@@ -1,4 +1,4 @@
-import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
+import {HttpException, HttpStatus, Injectable, Logger} from '@nestjs/common';
 import {UsersService} from "../users/users.service";
 import {JwtService} from "@nestjs/jwt";
 import {CreateUserDto, LoginUserDto} from "../users/user.dto";
@@ -12,6 +12,7 @@ import { User1 } from '../users/user1.entity';
 
 @Injectable()
 export class AuthService {
+    private readonly logger = new Logger(AuthService.name)
     constructor(
         private readonly prisma: PrismaService,
         private readonly jwtService: JwtService,
@@ -20,6 +21,7 @@ export class AuthService {
     ) {}
 
     async signUp(user: CreateUserDto) {
+     this.logger.log('signUp', user);
      await this.mailService.sendUserConfirmation(user);
   }
 
@@ -27,6 +29,7 @@ export class AuthService {
 
     async register(userDto: CreateUserDto):
         Promise<RegistrationStatus> {
+        this.logger.log('register', userDto);
         let status: RegistrationStatus = {
             success: true,
             message: "ACCOUNT_CREATE_SUCCESS",
@@ -45,6 +48,8 @@ export class AuthService {
     }
 
     async login(loginUserDto: LoginUserDto): Promise<any> {
+
+        this.logger.log('login', loginUserDto)
         // find user in db
         const user = await 
              this.usersService.findByLogin(loginUserDto);
@@ -59,6 +64,7 @@ export class AuthService {
     }
 
     private _createToken({ login }): any {
+        this.logger.log('createToken', login);
         const user: JwtPayload = { login };
         const Authorization = this.jwtService.sign(user);
         return {
@@ -67,7 +73,9 @@ export class AuthService {
         };
     }
 
+
     async validateUser(payload: JwtPayload): Promise<any> {
+        this.logger.log('validateUser')
         const user = await this.usersService.findByPayload(payload);
         if (!user) {
             throw new HttpException("INVALID_TOKEN", 
@@ -77,6 +85,7 @@ export class AuthService {
     }
 
     async verifyAccount(email :string): Promise<any> {
+    this.logger.log('verifyAccount')    
     this.usersService.emailVerification(email);
     this.mailService.sendUserValidation(email);
 }

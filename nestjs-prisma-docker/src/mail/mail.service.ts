@@ -1,13 +1,15 @@
 import { CreateUserDto } from './../users/user.dto';
 import { MailerService } from '@nestjs-modules/mailer';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { User1 } from '../users/user1.entity';
 
 @Injectable()
 export class MailService {
+  private readonly logger = new Logger(MailService.name);
   constructor(private mailerService: MailerService) {}
 
   async sendUserConfirmation(user: CreateUserDto) {
+    this.logger.log("sendUserConfirmation successfully");
     const url = `http://localhost:3000/auth/verify/${user.login}`;
 
    await this.mailerService.sendMail({
@@ -21,6 +23,7 @@ export class MailService {
 });
   }
   async sendUserValidation(email : string) {
+    this.logger.log("sendUserValidation success");
    await this.mailerService.sendMail({
   to:email,
   subject: 'Your mail are valide',

@@ -1,4 +1,4 @@
-import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
+import {HttpException, HttpStatus, Injectable, Logger} from '@nestjs/common';
 import {CreateUserDto, LoginUserDto, UpdatePasswordDto} from "./user.dto";
 import {compare, hash} from 'bcrypt'
 import {PrismaService} from "../prisma.service"
@@ -10,6 +10,7 @@ interface FormatLogin extends Partial<User> {
 
 @Injectable()
 export class UsersService {
+    private readonly logger = new Logger(UsersService.name)
     constructor(
         private prisma: PrismaService,
     ) {
@@ -18,6 +19,7 @@ export class UsersService {
     //use by user module to change user password
     async updatePassword(payload: UpdatePasswordDto, id: number): 
       Promise<User> {
+        this.logger.log('password updated', payload);
         const user = await this.prisma.user.findUnique({
             where: {id}
         });
@@ -40,6 +42,8 @@ export class UsersService {
 //use by auth module to register user in database
     async create(userDto: CreateUserDto): Promise<any> {
 
+        this.logger.log('user created', userDto);
+
         // // check if the user exists in the db
         const userInDb = await this.prisma.user.findFirst({
             where: {login: userDto.login}
@@ -58,6 +62,7 @@ export class UsersService {
 //use by auth module to login user
     async findByLogin({login, password}: LoginUserDto):  
                                    Promise<FormatLogin> {
+         this.logger.log("Login");                               
         const user = await this.prisma.user.findFirst({
             where: {login}
         });
@@ -81,12 +86,14 @@ export class UsersService {
 
     //use by auth module to get user in database
     async findByPayload({login}: any): Promise<any> {
+        this.logger.log("find by payload");
         return await this.prisma.user.findFirst({
             where: {login}
         });
     }
 
     async emailVerification(email : string): Promise<any> {
+        this.logger.log("emailVerification");
     return await this.prisma.user.updateMany({
             where: {
                 login : email
