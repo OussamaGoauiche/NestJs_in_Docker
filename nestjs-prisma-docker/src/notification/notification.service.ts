@@ -10,7 +10,7 @@ export class NotificationService {
   constructor( private readonly prisma: PrismaService,) {}
 
 
-   @Cron('59 * * * * *',{
+   @Cron('0 0 0 2 * *',{
     name: 'notifications'
   })
   async notificationGlobal() {
