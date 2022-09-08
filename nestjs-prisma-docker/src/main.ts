@@ -11,6 +11,7 @@ import * as http from 'http';
 import * as https from 'https';
 import express from 'express';
 import { ExpressAdapter } from '@nestjs/platform-express';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
     const httpsOptions = {
@@ -22,6 +23,10 @@ async function bootstrap() {
     new ExpressAdapter(server),);
   //app.use(compression());
   app.use(cookieParser());
+  app.useGlobalPipes(new ValidationPipe({
+    whitelist: true,
+    forbidNonWhitelisted:true
+  }));
   app.use(nestCsrf());
   app.enableCors();
   app.use(helmet());
