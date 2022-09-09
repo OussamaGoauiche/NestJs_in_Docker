@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, UseInterceptors, ClassSerializerInterceptor, UseFilters } from '@nestjs/common';
 import { NotificationService } from './notification.service';
 import { CreateNotificationDto } from './dto/create-notification.dto';
 import { UpdateNotificationDto } from './dto/update-notification.dto';
@@ -6,6 +6,7 @@ import { ApiNotFoundResponse, ApiOkResponse, ApiSecurity, ApiTags, ApiUnprocessa
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../roles/decorator';
 import { Role } from '../enums/role.enums';
+import { HttpExceptionFilter } from '../HttpExceptionFilter';
 
 @Controller('notification')
 @ApiTags('notification')

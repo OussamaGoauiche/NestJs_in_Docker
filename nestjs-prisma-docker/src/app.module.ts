@@ -16,10 +16,11 @@ import { NotificationModule } from './notification/notification.module';
 import { UtilisateurModule } from './utilisateur/utilisateur.module';
 import { AttribueModule } from './attribue/attribue.module';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
-import { APP_GUARD } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { SomePaypalModule } from './some-paypal/some-paypal.module';
 import { PhoneModule } from './phone/phone.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { HttpExceptionFilter } from './HttpExceptionFilter';
 
 @Module({
   imports: [
@@ -47,6 +48,9 @@ import { ScheduleModule } from '@nestjs/schedule';
   provide: APP_GUARD,
   useClass: ThrottlerGuard
 }
-,AppService,PrismaService],
+,AppService,PrismaService,{
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
+    }],
 })
 export class AppModule {}

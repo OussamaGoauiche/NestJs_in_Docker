@@ -12,6 +12,7 @@ import * as https from 'https';
 import express from 'express';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
+import { HttpExceptionFilter } from './HttpExceptionFilter';
 
 async function bootstrap() {
     const httpsOptions = {
@@ -27,6 +28,7 @@ async function bootstrap() {
     whitelist: true,
     forbidNonWhitelisted:true
   }));
+  app.useGlobalFilters(new HttpExceptionFilter());
   app.use(nestCsrf());
   app.enableCors();
   app.use(helmet());
