@@ -56,11 +56,11 @@ export class PrixgcoinController {
   }
 
   @Delete(':id')
-  @UseGuards(JwtAuthGuard)
+  /*@UseGuards(JwtAuthGuard)
   @ApiSecurity('access-key')
   @UseInterceptors(ClassSerializerInterceptor)
   @Roles(Role.Admin)
-  @ApiOkResponse({ description: 'Delete  successfully'})
+  @ApiOkResponse({ description: 'Delete  successfully'})*/
   remove(@Param('id') id: string) {
     return this.prixgcoinService.remove(+id);
   }

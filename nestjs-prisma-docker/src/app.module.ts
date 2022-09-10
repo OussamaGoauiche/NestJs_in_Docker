@@ -21,6 +21,7 @@ import { SomePaypalModule } from './some-paypal/some-paypal.module';
 import { PhoneModule } from './phone/phone.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { HttpExceptionFilter } from './HttpExceptionFilter';
+import { CompteModule } from './compte/compte.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { HttpExceptionFilter } from './HttpExceptionFilter';
    UtilisateurModule,
    AttribueModule,
    PhoneModule,
+   CompteModule,
   ],
   controllers: [AppController],
   providers: [{
