@@ -32,22 +32,21 @@ export class CompteController {
   }
 
    @Get(':id')
-  @UseGuards(JwtAuthGuard)
+  /*@UseGuards(JwtAuthGuard)
   @ApiSecurity('access-key')
   @UseInterceptors(ClassSerializerInterceptor)
   @ApiNotFoundResponse({ description: 'compte  not found.' })
-  @ApiOkResponse({ description: 'compte Bien retourné.'})
+  @ApiOkResponse({ description: 'compte Bien retourné.'})*/
   findOne(@Param('id') id: string) {
     return this.compteService.findOne(+id);
   }
 
 
-  @Patch(':id')
-  @UseGuards(JwtAuthGuard)
+  /*@UseGuards(JwtAuthGuard)
   @ApiSecurity('access-key')
   @UseInterceptors(ClassSerializerInterceptor)
   @Roles(Role.Admin)
-  @ApiOkResponse({ description: 'Update successfully'})
+  @ApiOkResponse({ description: 'Update successfully'})*/
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCompteDto: UpdateCompteDto) {
     return this.compteService.update(+id, updateCompteDto);

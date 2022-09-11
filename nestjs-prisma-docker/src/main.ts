@@ -1,7 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-import * as csurf from 'csurf';
 import helmet from 'helmet';
 import {nestCsrf, CsrfFilter} from 'ncsrf';
 import cookieParser from 'cookie-parser';
